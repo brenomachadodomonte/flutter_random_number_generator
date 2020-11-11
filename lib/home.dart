@@ -13,6 +13,9 @@ class _HomeState extends State<Home> {
   int _rangeInitial = 1;
   int _rangeFinal = 100;
 
+  final minController = TextEditingController();
+  final maxController  = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,10 +73,6 @@ class _HomeState extends State<Home> {
   }
 
   void _showDialogSetup(BuildContext context){
-
-    final minController = TextEditingController();
-    final maxController  = TextEditingController();
-
     minController.text = this._rangeInitial.toString();
     maxController.text = this._rangeFinal.toString();
 
