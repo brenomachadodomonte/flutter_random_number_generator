@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class Home extends StatelessWidget {
 
@@ -11,6 +12,14 @@ class Home extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Random Number'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.settings, color: Colors.white,),
+            onPressed: (){
+              _showDialogSetup(context);
+            },
+          )
+        ],
       ),
       body: Container(
         padding: EdgeInsets.all(10),
@@ -45,6 +54,91 @@ class Home extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  void _showDialogSetup(BuildContext context){
+
+    final minController = TextEditingController();
+    final maxController  = TextEditingController();
+
+    minController.text = this.rangeInitial.toString();
+    maxController.text = this.rangeFinal.toString();
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Center(
+            child: Text('Setup Range'),
+          ),
+          content: Container(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: <Widget>[
+                  TextField(
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter.digitsOnly,
+                    ],
+                    decoration: InputDecoration(
+                      labelText: 'Min',
+                      labelStyle: TextStyle(color: Colors.grey[700]),
+                      border: OutlineInputBorder(),
+                    ),
+
+                    style: TextStyle(color: Colors.grey[700]),
+                    controller: minController,
+                    keyboardType: TextInputType.number,
+                  ),
+                  Padding(padding: EdgeInsets.all(10)),
+                  TextField(
+                    inputFormatters: <TextInputFormatter>[
+                      WhitelistingTextInputFormatter.digitsOnly
+                    ],
+                    decoration: InputDecoration(
+                      labelText: 'Max',
+                      labelStyle: TextStyle(color: Colors.grey[700]),
+                      border: OutlineInputBorder(),
+                    ),
+                    style: TextStyle(color: Colors.grey[700]),
+                    controller: maxController,
+                    keyboardType: TextInputType.number,
+                  ),
+                  SizedBox(height: 10.0,),
+                  Divider(),
+                  Row(
+                    children: <Widget>[
+                      Expanded(
+                        flex: 1,
+                        child: FlatButton(
+                          child: Text(
+                            "CLOSE",
+                            style: TextStyle(color: Theme.of(context).primaryColor),
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                        ),
+                      ),
+                      Expanded(
+                        flex: 1,
+                        child: FlatButton(
+                          child: Text(
+                            "SETUP",
+                            style: TextStyle(color: Theme.of(context).primaryColor),
+                          ),
+                          onPressed: () {
+                            //setup range
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              )
+          ),
+        );
+      },
     );
   }
 }
