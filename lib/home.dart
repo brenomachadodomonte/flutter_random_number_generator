@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
 
   int result = 100;
   int rangeInitial = 1;
@@ -128,7 +133,11 @@ class Home extends StatelessWidget {
                             style: TextStyle(color: Theme.of(context).primaryColor),
                           ),
                           onPressed: () {
-                            //setup range
+                            setState(() {
+                              rangeInitial = int.parse(minController.text);
+                              rangeFinal = int.parse(maxController.text);
+                            });
+                            Navigator.of(context).pop();
                           },
                         ),
                       ),
