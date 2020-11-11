@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:math' as math;
 
 class Home extends StatefulWidget {
   @override
@@ -8,9 +9,9 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
 
-  int result = 100;
-  int rangeInitial = 1;
-  int rangeFinal = 100;
+  int _result = 100;
+  int _rangeInitial = 1;
+  int _rangeFinal = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -34,13 +35,13 @@ class _HomeState extends State<Home> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Range ${rangeInitial} to ${rangeFinal}', style: TextStyle(color: Colors.grey, fontSize: 18)),
+                Text('Range $_rangeInitial to $_rangeFinal', style: TextStyle(color: Colors.grey, fontSize: 18)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text(result.toString(), style: TextStyle(color: Colors.grey, fontSize: 60)),
+                Text(_result.toString(), style: TextStyle(color: Colors.grey, fontSize: 60)),
               ],
             ),
             Row(
@@ -48,10 +49,16 @@ class _HomeState extends State<Home> {
               children: <Widget>[
                 FloatingActionButton.extended(
                   label: Text('Generate', style: TextStyle(color: Colors.white),),
-                  icon: Icon(Icons.play_arrow, color: Colors.white),
+                  icon: Icon(Icons.refresh, color: Colors.white),
                   onPressed: (){
                     //Generate Ramdom Number
-                    print('Generate Ramdom Number');
+                    var random = math.Random();
+                    int max = _rangeFinal - _rangeInitial + 1;
+
+                    int randomNumber = random.nextInt(max);
+                    setState(() {
+                      _result = randomNumber + _rangeInitial;
+                    });
                   },
                 ),
               ],
@@ -67,8 +74,8 @@ class _HomeState extends State<Home> {
     final minController = TextEditingController();
     final maxController  = TextEditingController();
 
-    minController.text = this.rangeInitial.toString();
-    maxController.text = this.rangeFinal.toString();
+    minController.text = this._rangeInitial.toString();
+    maxController.text = this._rangeFinal.toString();
 
     showDialog(
       context: context,
@@ -134,8 +141,8 @@ class _HomeState extends State<Home> {
                           ),
                           onPressed: () {
                             setState(() {
-                              rangeInitial = int.parse(minController.text);
-                              rangeFinal = int.parse(maxController.text);
+                              _rangeInitial = int.parse(minController.text);
+                              _rangeFinal = int.parse(maxController.text);
                             });
                             Navigator.of(context).pop();
                           },
