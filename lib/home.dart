@@ -13,8 +13,8 @@ class _HomeState extends State<Home> {
   int _rangeInitial = 1;
   int _rangeFinal = 100;
 
-  final minController = TextEditingController();
-  final maxController  = TextEditingController();
+  var minController = TextEditingController();
+  var maxController  = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -139,11 +139,13 @@ class _HomeState extends State<Home> {
                             style: TextStyle(color: Theme.of(context).primaryColor),
                           ),
                           onPressed: () {
-                            setState(() {
-                              _rangeInitial = int.parse(minController.text);
-                              _rangeFinal = int.parse(maxController.text);
-                            });
-                            Navigator.of(context).pop();
+                            if(_rangeInitial < _rangeFinal){
+                              setState(() {
+                                _rangeInitial = int.parse(minController.text);
+                                _rangeFinal = int.parse(maxController.text);
+                              });
+                              Navigator.of(context).pop();
+                            }
                           },
                         ),
                       ),
