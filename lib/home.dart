@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 class Home extends StatelessWidget {
 
   int result = 100;
+  int rangeInitial = 1;
+  int rangeFinal = 100;
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +20,7 @@ class Home extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
-                Text('Range 1 to 100', style: TextStyle(color: Colors.grey, fontSize: 18)),
+                Text('Range ${rangeInitial} to ${rangeFinal}', style: TextStyle(color: Colors.grey, fontSize: 18)),
               ],
             ),
             Row(
